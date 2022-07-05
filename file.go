@@ -1,13 +1,18 @@
 package main
 
-import "fmt"
-
-func split(sum int) (x, y int) {
-	x = sum * 4 / 9
-	y = sum - x
-	return
-}
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	fmt.Println(split(17))
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
 }
