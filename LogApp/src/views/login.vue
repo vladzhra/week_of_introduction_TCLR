@@ -7,6 +7,7 @@
         <p>{{ text }}</p>
         <!-- <label id="mytext">{{ text }}</label> -->
     </div>
+    <div class="apire">Total vue packages: {{totalVuePackages}}</div>
 </template>
 
 <script>
@@ -14,12 +15,16 @@
         name: 'Login',
         data() {
             return {
+                totalVuePackages: null,
                 input: {
                     username: "",
                     password: ""
                 }
             }
         },
+        // created() {
+            
+        // },
         methods: {
             login() {
                 if (this.input.username != "" && this.input.password != "") {
@@ -35,6 +40,9 @@
                     this.text = "A username and password must be present";
                     this.input.username = "";
                     this.input.password = "";
+                    fetch("http://localhost:3002/api")
+                    .then(response => response.json())
+                    .then(data => (this.totalVuePackages = data.total));
                 }
             }
         }
