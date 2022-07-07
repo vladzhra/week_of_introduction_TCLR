@@ -21,11 +21,10 @@ app.get('/login-api', (req, res) => {
     username = req.query.username
     password = req.query.password
     console.log(username, password);
-    if (username == "vlad" && password == "zaharia") {
+    if (username == "vlad" && password == "zaharia")
         res.send({isAuthenticated: true, username: username});
-    } else {
+    else
         res.send({isAuthenticated: false});
-    }
 });
 
 app.listen(port, () => {
