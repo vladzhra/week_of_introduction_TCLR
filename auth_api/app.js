@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const { request } = require('http');
 const app = express()
 const port = 3002
 
@@ -15,8 +16,16 @@ app.get('/', (req, res) => {
 app.get('/api', (req, res) => {
     res.send({total: 66540});
 });
+
 app.get('/login-api', (req, res) => {
-    res.send({total: 66540});
+    username = req.query.username
+    password = req.query.password
+    console.log(username, password);
+    if (username == "vlad" && password == "zaharia") {
+        res.send({isAuthenticated: true, username: username});
+    } else {
+        res.send({isAuthenticated: false});
+    }
 });
 
 app.listen(port, () => {

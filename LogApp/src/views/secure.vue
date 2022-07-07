@@ -12,11 +12,11 @@
             return {};
         },
         mounted() {
-        this.showConfetti()
+            this.showConfetti()
         },
         methods: {
             showConfetti() {
-            confetti.addConfetti()
+                confetti.addConfetti()
             }
         }
     }

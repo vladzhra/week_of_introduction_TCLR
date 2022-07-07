@@ -23,26 +23,28 @@
             }
         },
         // created() {
-            
         // },
         methods: {
             login() {
                 if (this.input.username != "" && this.input.password != "") {
-                    if (this.input.username == "vlad" && this.input.password == "password") {
-                        this.$emit("authenticated", true);
-                        this.$router.replace({ name: "secure" });
-                    } else {
-                        this.text = "The username and / or password is incorrect"
-                        this.input.username = "";
-                        this.input.password = "";
-                    }
+                    // isAuthenticated = false;
+                    fetch("http://localhost:3002/login-api", [{username: this.input.username, password: this.input.password}])
+                    .then(response => response.json())
+                    .then(data => (this.totalVuePackages = data.isAuthenticated));
+                    // this.totalVuePackages = isAuthenticated;
+                    // if (isAuthenticated == true) {
+                    //     this.$emit("authenticated", true);
+                    //     this.$router.push({ path: "/secure" });
+                    //     // this.$router.replace({ name: "secure" });
+                    // } else {
+                    //     this.text = "The username and / or password is incorrect"
+                    //     this.input.username = "";
+                    //     this.input.password = "";
+                    // }
                 } else {
                     this.text = "A username and password must be present";
                     this.input.username = "";
                     this.input.password = "";
-                    fetch("http://localhost:3002/api")
-                    .then(response => response.json())
-                    .then(data => (this.totalVuePackages = data.total));
                 }
             }
         }
