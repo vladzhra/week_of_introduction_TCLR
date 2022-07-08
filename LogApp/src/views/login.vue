@@ -14,21 +14,21 @@
         data() {
             return {
                 text: "",
-                isAuthenticated: null,
+                isAuthenticated: false,
                 input: {
                     username: "",
-                    password: "",
-                    isAuthenticated: false
+                    password: ""
                 }
             }
         },
+        // created() {
+        // },
         methods: {
             login() {
                 if (this.input.username != "" && this.input.password != "") {
                     fetch("http://localhost:3002/login-api?username=" + this.input.username + "&password=" + this.input.password)
                     .then(response => response.json())
-                    .then(data => (this.isAuthenticated = data.isAuthenticated));
-                    console.log(this.isAuthenticated);
+                    .then(data => (this.isAuthenticated = data.isAuthenticated))
                     if (this.isAuthenticated == true) {
                         this.$emit("authenticated", true);
                         this.$router.replace({ name: "secure" });
@@ -46,7 +46,7 @@
         }
     }
 </script>
-<!-- this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password -->
+
 <style scoped>
     #login {
         width: 500px;
