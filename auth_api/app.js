@@ -1,7 +1,7 @@
 const express = require('express');
 const { request } = require('http');
 const app = express();
-const port = 3002;
+const port = 3000;
 var authRoutes = express.Router();
 // const db = require("./models");
 

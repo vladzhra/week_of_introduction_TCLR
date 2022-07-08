@@ -1,4 +1,4 @@
-# vuetify-dashboard
+# vuetify-logapp
 
 ## Project setup
 ```

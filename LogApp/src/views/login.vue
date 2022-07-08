@@ -15,6 +15,7 @@
             return {
                 text: "",
                 isAuthenticated: false,
+                data: "",
                 input: {
                     username: "",
                     password: ""
@@ -26,9 +27,28 @@
         methods: {
             login() {
                 if (this.input.username != "" && this.input.password != "") {
-                    fetch("http://localhost:3002/login-api?username=" + this.input.username + "&password=" + this.input.password)
-                    .then(response => response.json())
+                    async function getUserAsync()
+                    {
+                        let response = await fetch("http://localhost:3000/login-api?username=" + this.input.username + "&password=" + this.input.password);
+                        if (!response.ok) {
+                            const message = `An error has occured: ${res.status} - ${res.statusText}`;
+                            throw new Error(message);
+                        }
+                        let data = await response.json()
+                        return data;
+                    }
+                    data = getUserAsync()
                     .then(data => (this.isAuthenticated = data.isAuthenticated))
+                    .then(data => console.log(data));
+
+                    // const res = await fetch("http://localhost:3000/login-api?username=" + this.input.username + "&password=" + this.input.password)
+                    // .then(response => response.json())
+                    // .then(data => (this.isAuthenticated = data.isAuthenticated))
+                    // alert(res.status);
+                    // const response = await
+                    // const json = await response.json();
+                    // console.log(json);
+                    // alert(json);
                     if (this.isAuthenticated == true) {
                         this.$emit("authenticated", true);
                         this.$router.replace({ name: "secure" });
