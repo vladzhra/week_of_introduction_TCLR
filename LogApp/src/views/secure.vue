@@ -7,7 +7,7 @@
 
     const confetti = new JSConfetti()
     export default {
-        name: 'Secure',
+        name: 'Secure-view',
         data() {
             return {};
         },
