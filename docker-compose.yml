@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  front_end:
+    image: vz/logapp
+    ports:
+      - 8080:8080
+  back_end:
+    image: vz/auth_api
+    ports:
+      - 3000:3000
