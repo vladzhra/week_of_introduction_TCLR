@@ -2,7 +2,6 @@ const express = require('express');
 const { request } = require('http');
 const app = express();
 const port = 3000;
-var authRoutes = express.Router();
 // const db = require("./models");
 
 // db.sequelize.sync();
@@ -31,7 +30,6 @@ app.get('/login-api', (req, res) => {
     console.log(username, password);
     if (username == "vlad" && password == "zaharia") {
         res.send({isAuthenticated: true, route: "secure"});
-        res.redirect("http://localhost:3002/secure");
     } else
         res.send({isAuthenticated: false, route: "login-api"});
 });
