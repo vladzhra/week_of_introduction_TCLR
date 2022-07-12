@@ -61,10 +61,7 @@ exports.findOne = (req, res) => {
       } else res.send(data);
     });
 };
-// find all published Tutorials
-exports.findAllPublished = (req, res) => {
-  
-};
+
 // Update a Tutorial identified by the id in the request
 exports.update = (req, res) => {
     // Validate Request
