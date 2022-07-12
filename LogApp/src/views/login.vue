@@ -61,9 +61,9 @@
         // }
         if (this.input.username != "" && this.input.password != "") {
           // getUserAsync(this.input.username, this.input.password)
-          fetch("http://localhost:3000/login-api?username=" + this.input.username + "&password=" + this.input.password)
-          .then(response => response.json())
-          .then(data => (this.isAuthenticated = data.isAuthenticated))
+            fetch("http://localhost:3000/login-api?username=" + this.input.username + "&password=" + this.input.password)
+            .then(response => response.json())
+            .then(data => (this.isAuthenticated = data.isAuthenticated))
           // fetch("http://localhost:3000/login-api?username=" + this.input.username + "&password=" + this.input.password)
           // alert(res.status);
           // const response = await
