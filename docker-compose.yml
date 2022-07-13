@@ -2,10 +2,14 @@ version: '3.9'
 
 services:
   front_end:
-    image: vz/logapp
+    # image: vladzaharia1505/logapp
+    build:
+      context: LogApp
     ports:
       - 8080:8080
   back_end:
-    image: vz/auth_api
+    # image: vladzaharia1505/auth_api
+    build: 
+      context: auth_api
     ports:
       - 3000:3000

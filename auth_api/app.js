@@ -20,12 +20,16 @@ app.get('/login-api', (req, res) => {
     username = req.query.username
     password = req.query.password
     console.log(username, password);
+    // fetch("http://localhost:3000/login-api?username=" + this.input.username + "&password=" + this.input.password)
+    // .then(response => response.json())
+    // .then(data => (isAuthenticated = data.isAuthenticated));
     if (username == "vlad" && password == "zaharia") {
-        res.send({isAuthenticated: true, route: "secure"});
-    } else
-        res.send({isAuthenticated: false, route: "login-api"});
-});
 
+    // if (isAuthenticated == true) {
+        res.send({isAuthenticated: true});
+    } else
+        res.send({isAuthenticated: false});
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
