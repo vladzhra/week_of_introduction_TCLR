@@ -44,7 +44,7 @@ export default {
       // async function getUserAsync(username, password)
       // {
       //   let response = await fetch("http://localhost:3000/login-api?username=" + username + "&password=" + password);
-      //   let data = await response.json()
+      //   let data = response.json()
       //   // this.isAuthenticated = data.isAuthenticated;
       //   return data;
       // }
@@ -53,7 +53,6 @@ export default {
         fetch("http://localhost:3000/login-api?username=" + this.input.username + "&password=" + this.input.password)
           .then(response => response.json())
           .then(data => (this.isAuthenticated = data.isAuthenticated))
-        alert(this.isAuthenticated);
         if (this.isAuthenticated == true) {
           this.$emit("authenticated", true);
           this.$router.replace({ name: "secure" });
@@ -72,7 +71,16 @@ export default {
       if (this.input.username != "" && this.input.password != "") {
         fetch("http://localhost:3000/register-api?username=" + this.input.username + "&password=" + this.input.password)
           .then(response => response.json())
-        this.text = "You have successfully registered";
+          .then(data => (this.isAuthenticated = data.isAuthenticated))
+        if (this.isAuthenticated == true) {
+          this.text = "You are registered, please log in";
+          this.input.username = "";
+          this.input.password = "";
+        } else {
+          this.text = "An error has occurred. Please try again";
+          this.input.username = "";
+          this.input.password = "";
+        }
       }
     }
   }

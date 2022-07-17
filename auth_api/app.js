@@ -41,29 +41,18 @@ app.get('/login-api', (req, res) => {
 });
 
 app.get('/register-api', (req, res) => {
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
-  const tutorial = new Tutorial({
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published || false
-  });
   username = req.query.username
   password = req.query.password
   console.log(username, password);
   function register(username, password, result) {
-    sql.query(`INSERT INTO tutorials WHERE (title = '${username}') AND (description = '${password}')`, (err, res) => {
-    // sol.query('INSERT INTO my_db WHERE username = ? AND password = ?', [username, password], function (err, res) {
+    sql.query(`INSERT INTO tutorials (title, description, published) VALUES ('${username}','${password}', false)`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(0);
         return;
       }
       if (res.length) {
-        console.log("found tutorial: ", res[0]);
+        console.log("create tutorial: ", res[0]);
         result(1);
         return;
       }
@@ -72,9 +61,9 @@ app.get('/register-api', (req, res) => {
   }
   register(username, password, (err, data) => {
     if (err == 0)
-      res.send("An error has occurred. Please try again");
+      res.send({isAuthenticated: false});
     else
-      res.send("You are registered, please log in");
+      res.send({isAuthenticated: true});
   });
 });
 

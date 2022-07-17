@@ -2,7 +2,7 @@
     <v-app>
         <v-card width="400" class="mx-auto mt-15">
             <v-card-title>
-            <h1 @click="showConfetti" class="display-1">🎉 Logged!</h1>
+                <h1 @click="showConfetti" class="display-1">🎉 Logged!</h1>
             </v-card-title>
         </v-card>
     </v-app>
