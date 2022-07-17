@@ -23,28 +23,6 @@ exports.create = (req, res) => {
       else res.send(data);
     });
 };
-// Retrieve all Tutorials from the database (with condition).
-exports.findAll = (req, res) => {
-    const title = req.query.title;
-    Tutorial.getAll(title, (err, data) => {
-      if (err)
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
-        });
-      else res.send(data);
-    });
-  };
-  exports.findAllPublished = (req, res) => {
-    Tutorial.getAllPublished((err, data) => {
-      if (err)
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
-        });
-      else res.send(data);
-    });
-};
 // Find a single Tutorial with a id
 exports.findOne = (req, res) => {
     Tutorial.findById(req.params.title, req.params.description, (err, data) => {

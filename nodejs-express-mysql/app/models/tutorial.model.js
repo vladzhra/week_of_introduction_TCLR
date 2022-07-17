@@ -15,21 +15,21 @@ Tutorial.create = (newTutorial, result) => {
     result(null, { id: res.insertId, ...newTutorial });
   });
 };
-Tutorial.findById = (title, password, result) => {
-  sql.query(`SELECT * FROM tutorials WHERE (title = '${title}') AND (description = '${password}')`, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
+  Tutorial.findById = (title, password, result) => {
+    sql.query(`SELECT * FROM tutorials WHERE (title = '${title}') AND (description = '${password}')`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(0);
+        return;
+      }
+      if (res.length) {
+        console.log("found tutorial: ", res[0]);
+        result(1);
+        return;
+      }
+      // not found Tutorial with the id
       result(0);
-      return;
-    }
-    if (res.length) {
-      console.log("found tutorial: ", res[0]);
-      result(1);
-      return;
-    }
-    // not found Tutorial with the id
-    result(0);
-  });
+    });
 };
 Tutorial.updateById = (id, tutorial, result) => {
   sql.query(
