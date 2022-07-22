@@ -11,14 +11,14 @@ services:
     ports:
       - '3306:3306'
   front_end:
-    # image: vladzaharia1505/logapp
+    image: vladzaharia1505/logapp
     build:
       context: LogApp
     ports:
       - 8080:8080
   back_end:
     restart: on-failure
-    # image: vladzaharia1505/auth_api
+    image: vladzaharia1505/auth_api
     build:
       context: auth_api
     ports:
