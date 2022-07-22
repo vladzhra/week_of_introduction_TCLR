@@ -1,19 +1,16 @@
 const Tutorial = require("../models/tutorial.model.js");
-// Create and Save a new Tutorial
+
 exports.create = (req, res) => {
-    // Validate request
     if (!req.body) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
     }
-    // Create a Tutorial
     const tutorial = new Tutorial({
       title: req.body.title,
       description: req.body.description,
       published: req.body.published || false
     });
-    // Save Tutorial in the database
     Tutorial.create(tutorial, (err, data) => {
       if (err)
         res.status(500).send({
@@ -23,28 +20,15 @@ exports.create = (req, res) => {
       else res.send(data);
     });
 };
-// Find a single Tutorial with a id
 exports.findOne = (req, res) => {
     Tutorial.findById(req.params.title, req.params.description, (err, data) => {
       if (err == 0) {
         res.send(false);
-        // if (err.kind === "not_found") {
-          // res.status(404).send({
-          //   message: `Not found Tutorial with id ${req.params.id}.`
-          // });
-        // } else {
-          // res.status(500).send({
-          //   message: "Error retrieving Tutorial with id " + req.params.id,
-          // });
-        // }
       } else
         res.send(true);
     });
 };
-
-// Update a Tutorial identified by the id in the request
 exports.update = (req, res) => {
-    // Validate Request
     if (!req.body) {
       res.status(400).send({
         message: "Content can not be empty!"
@@ -69,7 +53,6 @@ exports.update = (req, res) => {
       }
     );
 };
-// Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
     Tutorial.remove(req.params.id, (err, data) => {
       if (err) {
@@ -85,7 +68,6 @@ exports.delete = (req, res) => {
       } else res.send({ message: `Tutorial was deleted successfully!` });
     });
 };
-// Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
     Tutorial.removeAll((err, data) => {
       if (err)
