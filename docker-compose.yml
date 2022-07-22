@@ -5,8 +5,9 @@ services:
     image: mysql:latest
     environment:
       MYSQL_DATABASE: 'tutorials'
-      MYSQL_USER: 'root'
+      MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
     ports:
       - '3306:3306'
   front_end:
@@ -16,7 +17,7 @@ services:
     ports:
       - 8080:8080
   back_end:
-    restart: always
+    restart: on-failure
     # image: vladzaharia1505/auth_api
     build:
       context: auth_api
