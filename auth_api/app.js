@@ -18,7 +18,7 @@ app.get('/login-api', (req, res) => {
   password = req.query.password
   console.log(username, password);
   function findById(username, password, result) {
-    sql.query(`SELECT * FROM tutorials WHERE (title = '${username}') AND (description = '${password}')`, (err, res) => {
+    sql.query(`SELECT * FROM tutorials WHERE (title = ?) AND (description = ?)`, [username, password], (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(0);
@@ -57,7 +57,7 @@ app.get('/register-api', (req, res) => {
         return;
       }
     });
-    sql.query(`INSERT INTO tutorials (title, description, published) VALUES ('${username}','${password}', false)`, (err, res) => {
+    sql.query(`INSERT INTO tutorials (title, description, published) VALUES (?, ?, false)`, [username, password], (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(0);
