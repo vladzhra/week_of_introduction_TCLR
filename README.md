@@ -1,5 +1,8 @@
 # week_of_introduction_TCLR
 
+Frond end : ~/LogApp
+Back end : ~/auth_api
+
 Introduction of :
 - nodejs express
 - vuetify + vue3

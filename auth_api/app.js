@@ -45,20 +45,25 @@ app.get('/register-api', (req, res) => {
   password = req.query.password
   console.log(username);
   function register(username, password, result) {
-    sql.query(`CREATE TABLE IF NOT EXISTS tutorials (
-      id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-      title varchar(255) NOT NULL,
-      description varchar(255),
-      published BOOLEAN DEFAULT false
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8`, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(0);
-        return;
-      }
-      result(0);
-    });
-
+    // sql.query(`USE tutorials`, (err, res) => {
+    //   if (err) {
+    //     console.log("error: ", err);
+    //     result(0);
+    //     return;
+    //   }
+    // }),
+    // sql.query(` CREATE TABLE IF NOT EXISTS tutorials (
+    //   id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    //   title varchar(255) NOT NULL,
+    //   description varchar(255),
+    //   published BOOLEAN DEFAULT false
+    // ) ENGINE=InnoDB DEFAULT CHARSET=utf8`, (err, res) => {
+    //   if (err) {
+    //     console.log("error: ", err);
+    //     result(0);
+    //     return;
+    //   }
+    // });
     sql.query(`INSERT INTO tutorials (title, description, published) VALUES ('${username}','${password}', false)`, (err, res) => {
       if (err) {
         console.log("error: ", err);
