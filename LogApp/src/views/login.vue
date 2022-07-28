@@ -62,9 +62,19 @@ export default {
     },
     register() {
       if (this.input.username != "" && this.input.password != "") {
-        fetch("http://localhost:3000/register-api?username=" + this.input.username + "&password=" + this.input.password)
-          .then(response => response.json())
-        this.text = "Registration Successful. Please Login";
+        (async () => {
+          const response = await fetch("http://localhost:3000/register-api?username=" + this.input.username + "&password=" + this.input.password)
+          const data = await response.json()
+          if (data.isAuthenticated == true) {
+            this.text = "Registration Successful. Please Login";
+          } else {
+            this.text = "An Error Occurred. Please Try Again";
+            this.input.username = "";
+            this.input.password = "";
+          }
+        })();
+      } else {
+        this.text = "Please enter username and password";
         this.input.username = "";
         this.input.password = "";
       }

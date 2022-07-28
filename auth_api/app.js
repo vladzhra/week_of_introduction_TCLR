@@ -42,8 +42,8 @@ app.get('/login-api', (req, res) => {
 });
 
 app.get('/register-api', (req, res) => {
-  username = req.query.username
-  password = req.query.password
+  let username = req.query.username
+  let password = req.query.password
   console.log(username);
   function register(username, password, result) {
     connection.query(`CREATE TABLE IF NOT EXISTS tutorials (
