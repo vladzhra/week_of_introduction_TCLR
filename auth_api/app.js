@@ -33,12 +33,17 @@ app.get('/login-api', (req, res) => {
       result(0);
     });
   }
-  findById(username, password, (err, data) => {
+  try {
+    findById(username, password, (err, data) => {
     if (err == 0)
       res.send({isAuthenticated: false});
     else
       res.send({isAuthenticated: true});
-  });
+    });
+  } catch (err) {
+    console.log(err);
+    res.send({isAuthenticated: false});
+  }
 });
 
 app.get('/register-api', (req, res) => {
@@ -72,12 +77,17 @@ app.get('/register-api', (req, res) => {
       result(0);
     });
   }
-  register(username, password, (err, data) => {
-    if (err == 0)
-      res.send({isAuthenticated: false});
-    else
-      res.send({isAuthenticated: true});
-  });
+  try {
+    register(username, password, (err, data) => {
+      if (err == 0)
+        res.send({isAuthenticated: false});
+      else
+        res.send({isAuthenticated: true});
+    });
+  } catch (err) {
+    console.log(err);
+    res.send({isAuthenticated: false});
+  }
 });
 
 app.listen(port, () => {
