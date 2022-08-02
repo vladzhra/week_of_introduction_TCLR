@@ -1,5 +1,6 @@
 import express from "express";
 import connection from "./models/db.js";
+import util from "util";
 const app = express();
 const port = 3000;
 
@@ -13,37 +14,57 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/login-api', (req, res) => {
-  console.log(req.query);
+app.get('/login-api', async (req, res) => {
   let username = req.query.username
   let password = req.query.password
   console.log(username, password);
-  function findById(username, password, result) {
-    connection.query(`SELECT * FROM tutorials WHERE (title = ?) AND (description = ?)`, [username, password], (err, res) => {
-      if (err) {
+   function findById(username, password) {
+    try {
+      const result = connection.query(`SELECT * FROM tutorials WHERE (title = ?) AND (description = ?)`, [username, password]);
+      console.log(result.found);
+      if (result.found == undefined) {
         console.log("error: ", err);
-        result(0);
-        return;
+        return 0;
+      } else {
+        console.log("found : ", res[0]);
+        return 1;
       }
-      if (res.length) {
-        console.log("found tutorial: ", res[0]);
-        result(1);
-        return;
-      }
-      result(0);
+    } catch (err) {
+      return 0;
+    }
+  }
+  // const task_findby = util.promisify(connection.query);
+  const SQL = async function(query, args) {
+    return new Promise((resolve, reject) => {
+      connection.query(query, args, (err, res) => {
+        if (err) return reject(err);
+        resolve(res);
+      });
     });
   }
   try {
-    findById(username, password, (err, data) => {
-    if (err == 0)
+    const result = await SQL(`SELECT * FROM tutorials WHERE (title = ?) AND (description = ?)`, [username, password]);
+    console.log(result);
+    if (result.length == 0) {
       res.send({isAuthenticated: false});
-    else
+    } else {
       res.send({isAuthenticated: true});
-    });
+    }
   } catch (err) {
-    console.log(err);
-    res.send({isAuthenticated: false});
+    console.log("error: ", err);
   }
+
+  // try {
+  //   findById(username, password, (err, data) => {
+  //   if (err == 0)
+  //     res.send({isAuthenticated: false});
+  //   else
+  //     res.send({isAuthenticated: true});
+  //   });
+  // } catch (err) {
+  //   console.log(err);
+  //   res.send({isAuthenticated: false});
+  // }
 });
 
 app.get('/register-api', (req, res) => {
@@ -79,7 +100,7 @@ app.get('/register-api', (req, res) => {
   }
   try {
     register(username, password, (err, data) => {
-      if (err == 0)
+      if (err)
         res.send({isAuthenticated: false});
       else
         res.send({isAuthenticated: true});
