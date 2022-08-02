@@ -1,0 +1,9 @@
+# Filename: Dockerfile
+FROM node:18
+WORKDIR /home/wac/Documents/Callr/week_of_introduction_TCLR/LogApp
+
+RUN npm install
+RUN npm add js-confetti
+
+EXPOSE 8080
+CMD ["npm", "run", "serve"]
