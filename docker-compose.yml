@@ -13,10 +13,14 @@ services:
   front_end:
     image: vladzaharia1505/logapp
     build:
+      dockerfile: Dockerfile.dev
       context: LogApp
     ports:
       - 8080:8080
-
+    volumes:
+      - type: bind
+        source: LogApp/
+        target: /app/LogApp
   back_end:
     restart: on-failure
     # image: vladzaharia1505/auth_api
